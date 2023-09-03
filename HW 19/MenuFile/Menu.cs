@@ -1,4 +1,4 @@
-﻿using Library.DAL;
+﻿using Librar.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
@@ -11,7 +11,7 @@ namespace Library
         private bool _isExit = false;
         private readonly List<IMenuItem> _items = new();
         public IEnumerable<IMenuItem> Items => _items;
-        private static DbContextOptionsBuilder<MasterContext> optionBuilder;
+        private static DbContextOptionsBuilder<LibraryContext> optionBuilder;
 
         public Menu(string? title, Action? process = null, string? description = null)
             : base(title, process, description)
@@ -36,12 +36,9 @@ namespace Library
 
             var configuration = configurationBuilder.Build();
 
-            optionBuilder = new DbContextOptionsBuilder<MasterContext>();
+            optionBuilder = new DbContextOptionsBuilder<LibraryContext>();
             optionBuilder.UseSqlServer(configuration.GetConnectionString("Default"));
 
-            using var context = new MasterContext(optionBuilder.Options);
-
-            var s = context.Librarians.ToList();
         }
 
         public override void Process()
@@ -50,6 +47,8 @@ namespace Library
             while (!_isExit)
             {
                 Console.Clear();
+
+                Console.WriteLine($"\n{Title}\n");
 
                 for (int i = 0; i < _items.Count; i++)
                 {

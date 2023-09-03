@@ -1,4 +1,5 @@
-﻿using Library.DAL;
+﻿using Librar.DAL;
+using Librar.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
@@ -13,10 +14,10 @@ namespace Library
     {
 
         [MenuAction("Login", 1, "To Enter is system")]
-        public void Login(DbContextOptionsBuilder<MasterContext> optionBuilder)
+        public void Login(DbContextOptionsBuilder<LibraryContext> optionBuilder)
         {
             Console.Clear();
-            using var context = new MasterContext(optionBuilder.Options);
+            using var context = new LibraryContext(optionBuilder.Options);
             var librarians = context.Librarians.ToList();
 
             Console.WriteLine("Please enter Login");
@@ -46,7 +47,7 @@ namespace Library
             Console.ReadKey();
         }
 
-        private void System(MasterContext context)
+        private void System(LibraryContext context)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("You are in system now");
@@ -60,28 +61,14 @@ namespace Library
 
         [MenuSubmenu("Registration", 2, "Create new Librarian or Reader")]
         public Registration Registration { get; set; }
-        //public void Registration(DbContextOptionsBuilder<MasterContext> optionBuilder)
-        //{
-        //    using var context = new MasterContext(optionBuilder.Options);
-        //    var librarians = context.Librarians.ToList();
-
-
-
-
-        //    context.SaveChanges();
-        //    context.Dispose();
-
-        //    Console.ReadKey();
-        //}
-
     }
     internal class Registration
     {
         [MenuAction("Librarian", 1, "Create new Librarian")]
-        public void LibrarianRegistration(DbContextOptionsBuilder<MasterContext> optionBuilder)
+        public void LibrarianRegistration(DbContextOptionsBuilder<LibraryContext> optionBuilder)
         {
             Console.Clear();
-            using var context = new MasterContext(optionBuilder.Options);
+            using var context = new LibraryContext(optionBuilder.Options);
             var librarians = context.Librarians.ToList();
 
             Console.WriteLine("Please enter Login");
@@ -153,10 +140,10 @@ namespace Library
         }
         
         [MenuAction("Reader", 2, "Create new Reader")]
-        public void ReaderRegistration(DbContextOptionsBuilder<MasterContext> optionBuilder)
+        public void ReaderRegistration(DbContextOptionsBuilder<LibraryContext> optionBuilder)
         {
             Console.Clear();
-            using var context = new MasterContext(optionBuilder.Options);
+            using var context = new LibraryContext(optionBuilder.Options);
             var librarians = context.Readers.ToList();
 
             Console.WriteLine("Please enter Login");
