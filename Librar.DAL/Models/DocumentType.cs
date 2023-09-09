@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Librar.DAL.Models
 {
     public class DocumentType
     {
-        [Key]
         public int Id { get; set; }
         [Key]
-        [Required]
+        [MaxLength(255)]
         public string Type { get; set; } = null!;
-        public ICollection<Reader> DocumentTypes { get; set; } = new List<Reader>();
+        public virtual ICollection<Reader> Readers { get; set; } = new List<Reader>();
     }
 }

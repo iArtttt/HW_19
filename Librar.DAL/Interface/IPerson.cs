@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Librar.DAL.Interface
 {
-    public interface IPerson
+    public interface IPerson : IName
     {
-        string Name { get; set; }
         string? LastName { get; set; }
         string? SecondName { get; set; }
         DateTime? Birthday { get; set; }
-    }   
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using Librar.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Linq;
 using System.Reflection;
 
 namespace Library
@@ -11,7 +12,7 @@ namespace Library
         private bool _isExit = false;
         private readonly List<IMenuItem> _items = new();
         public IEnumerable<IMenuItem> Items => _items;
-        private static DbContextOptionsBuilder<LibraryContext> optionBuilder;
+        private static DbContextOptionsBuilder<LibraryContext> optionBuilder = new();
 
         public Menu(string? title, Action? process = null, string? description = null)
             : base(title, process, description)
@@ -26,7 +27,7 @@ namespace Library
         {
             Init();
 
-            DetectMenu<UserMainMenu>().Process();
+            DetectMenu<EnterInSystem>().Process();
         }
         private static void Init()
         {
@@ -36,8 +37,8 @@ namespace Library
 
             var configuration = configurationBuilder.Build();
 
-            optionBuilder = new DbContextOptionsBuilder<LibraryContext>();
-            optionBuilder.UseSqlServer(configuration.GetConnectionString("Default"));
+            //optionBuilder = new DbContextOptionsBuilder<LibraryContext>();
+            optionBuilder.UseSqlServer(configuration.GetConnectionString("Default")).LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Error).UseLazyLoadingProxies();
 
         }
 
@@ -112,9 +113,11 @@ namespace Library
         {
             _items.Add(item);
         }
-        internal static Menu DetectMenu<T>() where T : new() => DetectMenu(new Menu("Main Menu"), typeof(T));
+        internal static Menu DetectMenu<T>() where T : new() => DetectMenu(new Menu("Main Menu"), typeof(T), optionBuilder);
+        internal static Menu DetectMenu<T>(params object[] values) where T : new() 
+            => DetectMenu(new Menu("Main Menu"), typeof(T), values.Append(optionBuilder).ToArray());
 
-        private static Menu DetectMenu(Menu newMenu, Type typeMenu)
+        private static Menu DetectMenu(Menu newMenu, Type typeMenu, params object[] values)
         {
 
             var obj = Activator.CreateInstance(typeMenu);
@@ -124,7 +127,7 @@ namespace Library
                 .Select(m =>
                 {
                     var attribute = m.GetCustomAttribute<MenuActionAttribute>();
-                    return new MenuItem(attribute!.Title, () => { m.Invoke(obj, new[] { optionBuilder } ); }, attribute.Description);
+                    return new MenuItem(attribute!.Title, () => { m.Invoke(obj, MapValues(m, values) ); }, attribute.Description);
                 });
 
             var subMenus = typeMenu.GetProperties()
@@ -137,7 +140,7 @@ namespace Library
 
             foreach (var menu in subMenus)
             {
-                newMenu.AddMenuItem(DetectMenu(menu.Menu, menu.Type));
+                newMenu.AddMenuItem(DetectMenu(menu.Menu, menu.Type, values));
             }
             foreach (var item in menuItems)
             {
@@ -146,6 +149,20 @@ namespace Library
 
 
             return newMenu;
+        }
+
+        private static object?[] MapValues(MethodInfo m, object[] values)
+        {
+            List<object> result = new List<object>();
+            
+            var valuesList = values.ToList();
+            foreach (var item in m.GetParameters())
+            {
+                var index = valuesList.FindIndex(t => t.GetType().IsAssignableTo(item.ParameterType));
+                result.Add(valuesList[index]);
+                valuesList.RemoveAt(index);
+            }
+            return result.ToArray();
         }
     }
 }
