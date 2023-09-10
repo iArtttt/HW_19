@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Librar.DAL.Models
 {
-    public class Autor : IPerson
+    public class Autor : IName
     {
         [Key]
         public int ID { get; set; }

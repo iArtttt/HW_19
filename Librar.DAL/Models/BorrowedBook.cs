@@ -1,14 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Librar.DAL.Interface;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Librar.DAL.Models
 {
-    public class BorrowedBooks
+    public class BorrowedBook : IName
     {
         [Key] 
-        public int Id { get; set; }
-        
+        public int ID { get; set; }
+
         [MaxLength(400)]
+        public string Name { get; set; } = null!;
+        
         public int BookID { get; set; }
         
         [MaxLength(400)]

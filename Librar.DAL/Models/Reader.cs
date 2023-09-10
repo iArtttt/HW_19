@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Librar.DAL.Models
 {
-    public class Reader : IEntry, IPerson
+    public class Reader : IUser, IName
     {
         [Key]
-        public int Id { get; set; }
+        public int ID { get; set; }
         [MaxLength(400)]
         public string Login { get; set; } = null!;
         public string Password { get; set; } = null!;
@@ -27,8 +27,8 @@ namespace Librar.DAL.Models
         public string DocumentType { get; set; } = null!;
         public int DocumentNumber { get; set; }
 
-        [ForeignKey(nameof(Id))]
-        public virtual ICollection<BorrowedBooks> BorrowedBooks { get; set; } = new List<BorrowedBooks>();
+        [ForeignKey(nameof(ID))]
+        public virtual ICollection<BorrowedBook> BorrowedBooks { get; set; } = new List<BorrowedBook>();
 
 
         [ForeignKey(nameof(DocumentType))]

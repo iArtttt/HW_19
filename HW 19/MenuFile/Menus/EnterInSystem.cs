@@ -13,8 +13,8 @@ namespace Library
         {
             Console.Clear();
             using var context = new LibraryContext(optionBuilder.Options);
-            List<IEntry> users = context.Librarians.ToList<IEntry>();
-            users.AddRange(context.Readers.ToList<IEntry>());
+            List<IUser> users = context.Librarians.ToList<IUser>();
+            users.AddRange(context.Readers.ToList<IUser>());
 
             Info.Inform("Please enter Login");
             var login = Console.ReadLine();
@@ -40,7 +40,7 @@ namespace Library
             }
         }
 
-        private void System(IEntry currentUser, LibraryContext context)
+        private void System(IUser currentUser, LibraryContext context)
         {
             Info.SuccedKey("You are in system now");
 

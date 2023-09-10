@@ -16,7 +16,7 @@ namespace Library
 
             Info.Inform("Searching...");
 
-            using (var bo = new LibraryContext(optionBuilder.Options))
+            using (var bo = new LibraryContext(optionBuilder.UseLazyLoadingProxies().Options))
             {
                 if (!string.IsNullOrEmpty(search))
                     SelectActionMenu.NamedList = bo.Books
@@ -46,28 +46,36 @@ namespace Library
         private void Take(LibraryContext context, Reader reader, Book book)
         {
             Console.WriteLine();
-            Info.Inform("Do you want take this book? ( y, + ) to take");
-            var wantTake = Console.ReadLine().ToLower();
-
-            if (!string.IsNullOrEmpty(wantTake) && (wantTake == "y" || wantTake == "+"))
+            if (book.Count > 0)
             {
-                BorrowedBooks borrowBook = new();
-                var returnTo = DateTime.Now.AddDays(book.ReturnDays);
 
-                borrowBook.ReaderID = reader.Id;
-                borrowBook.BookID = book.ID;
-                borrowBook.Taked = DateTime.Now;
-                borrowBook.ReturneTo = returnTo;
-                borrowBook.StoryTook = $"{reader.Name}, take book ( {book.Name} ) for: {returnTo}";
-                borrowBook.IsReturned = false;
+                Info.Inform("Do you want take this book? ( y, + ) to take");
+                var wantTake = Console.ReadLine().ToLower();
 
-                context.BorrowedBooks.Add(borrowBook);
+                if (!string.IsNullOrEmpty(wantTake) && (wantTake == "y" || wantTake == "+"))
+                {
+                    BorrowedBook borrowBook = new();
+                    var returnTo = DateTime.Now.AddDays(book.ReturnDays);
 
-                book.Count--;
-                context.Attach(book);
-                context.SaveChanges();
-                Info.SuccedKey($"You take book: {book.Name}, you have {book.ReturnDays} days to return it");
+                    borrowBook.Name = book.Name;
+                    borrowBook.ReaderID = reader.ID;
+                    borrowBook.BookID = book.ID;
+                    borrowBook.Taked = DateTime.Now;
+                    borrowBook.ReturneTo = returnTo;
+                    borrowBook.StoryTook = $"{reader.Name}, take book ( {book.Name} ) for: {returnTo}";
+                    borrowBook.IsReturned = false;
+
+                    context.BorrowedBooks.Add(borrowBook);
+
+                    context.Attach(book);
+                    book.Count--;
+                    context.SaveChanges();
+                    Info.SuccedKey($"You take book: {book.Name}, you have {book.ReturnDays} days to return it");
+                    context.Dispose();
+                }
             }
+            else
+                Info.ErrorKey("Sorry, someone just took the last copy");
         }
 
         [MenuAction("Search Autor", 2, "Find book from your favorite autor")]
@@ -79,7 +87,7 @@ namespace Library
 
             Info.Inform("Searching...");
 
-            using (var bo = new LibraryContext(optionBuilder.Options))
+            using (var bo = new LibraryContext(optionBuilder.UseLazyLoadingProxies().Options))
             {
                 if (!string.IsNullOrEmpty(search))
                     SelectActionMenu.NamedList = bo.Autors.Where(n => n.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase)).ToList<IName>();

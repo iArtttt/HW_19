@@ -37,8 +37,8 @@ namespace Library
                                 var toAdd = Console.ReadLine().ToLower();
                                 if (toAdd == "y" || toAdd == "+")
                                 {
-                                    currentBook.Count++;
                                     books.Attach(currentBook);
+                                    currentBook.Count++;
                                     
                                     Info.Succed("Book was Add to Library");
                                 }

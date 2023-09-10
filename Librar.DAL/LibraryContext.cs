@@ -13,12 +13,12 @@ namespace Librar.DAL
         public DbSet<DocumentType> DocumentTypes { get; set; }
         public DbSet<PublishingCodeType> PublishingCodeTypes { get; set; }
         public DbSet<BookGenre> BookGenres { get; set; }
-        public DbSet<BorrowedBooks> BorrowedBooks { get; set; }
+        public DbSet<BorrowedBook> BorrowedBooks { get; set; }
 
         public LibraryContext(DbContextOptions optionsBuilder)
             : base(optionsBuilder)
         {
-            //Database.EnsureDeleted();
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -55,7 +55,7 @@ namespace Librar.DAL
                 .HasPrincipalKey(d => d.Type);
 
 
-            modelBuilder.Entity<BorrowedBooks>()
+            modelBuilder.Entity<BorrowedBook>()
                 .HasOne(a => a.Reader)
                 .WithMany(b => b.BorrowedBooks)
                 .HasForeignKey(s => s.ReaderID)
@@ -64,11 +64,11 @@ namespace Librar.DAL
 
 
             modelBuilder.Entity<Librarian>().HasData(
-                new Librarian { Id = 1, Login = "Admin", Password = "1234", Mail = "admin@gmail.com" }
+                new Librarian { ID = 1, Login = "Admin", Password = "1234", Mail = "admin@gmail.com" }
                 );
             modelBuilder.Entity<Reader>().HasData(
                 new Reader { 
-                    Id = 1,
+                    ID = 1,
                     Login = "Reader", 
                     Password = "1234", 
                     Mail = "reader@gmail.com", 
@@ -79,7 +79,7 @@ namespace Librar.DAL
                     LibrarianLog = "Admin"
                 },
                 new Reader {
-                    Id = 2,
+                    ID = 2,
                     Login = "Reader1", 
                     Password = "1423", 
                     Mail = "rEAr@gmail.com", 
@@ -93,18 +93,18 @@ namespace Librar.DAL
                 );
             
             modelBuilder.Entity<DocumentType>().HasData(
-                new DocumentType { Id = 1, Type = "Passport" },
-                new DocumentType { Id = 2, Type = "ID Passport" },
-                new DocumentType { Id = 3, Type = "Driver License" },
-                new DocumentType { Id = 4, Type = "International Passport" }
+                new DocumentType { ID = 1, Type = "Passport" },
+                new DocumentType { ID = 2, Type = "ID Passport" },
+                new DocumentType { ID = 3, Type = "Driver License" },
+                new DocumentType { ID = 4, Type = "International Passport" }
                 );
             
             modelBuilder.Entity<PublishingCodeType>().HasData(
-                new PublishingCodeType { Id = 1, CodeType = 5},
-                new PublishingCodeType { Id = 2, CodeType = 10},
-                new PublishingCodeType { Id = 3, CodeType = 15},
-                new PublishingCodeType { Id = 4, CodeType = 20},
-                new PublishingCodeType { Id = 5, CodeType = 25}
+                new PublishingCodeType { ID = 1, CodeType = 5},
+                new PublishingCodeType { ID = 2, CodeType = 10},
+                new PublishingCodeType { ID = 3, CodeType = 15},
+                new PublishingCodeType { ID = 4, CodeType = 20},
+                new PublishingCodeType { ID = 5, CodeType = 25}
                 );
 
             modelBuilder.Entity<BookGenre>().HasData(

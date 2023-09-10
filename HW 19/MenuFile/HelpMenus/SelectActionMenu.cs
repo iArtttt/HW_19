@@ -35,6 +35,7 @@ namespace Library
                 }
                 _isExit = false;
                 Index = 0;
+                NamedList.Clear();
             }
             else
                 Info.InformKey("Here is nothing in Library Base");

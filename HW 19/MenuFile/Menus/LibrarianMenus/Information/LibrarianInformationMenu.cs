@@ -24,9 +24,9 @@ namespace Library
 
                     foreach (var debtor in debtors)
                     {
-                        if(!readers.Any(i => i.Id == debtor.Reader.Id))
+                        if(!readers.Any(i => i.ID == debtor.Reader.ID))
                         {
-                            Info.Inform($"ID: {debtor.Reader.Id} => {debtor.Reader.Name} {debtor.Reader.LastName} {debtor.Reader.SecondName}");
+                            Info.Inform($"ID: {debtor.Reader.ID} => {debtor.Reader.Name} {debtor.Reader.LastName} {debtor.Reader.SecondName}");
                             readers.Add(debtor.Reader);
                         }
                         Info.Inform($"\tBook ID: {debtor.BookID} => Name: {debtor.Book.Name} \t||\t ReturneTo: {debtor.ReturneTo}\t||\tAutor {debtor.Book.Autor}");
@@ -58,9 +58,9 @@ namespace Library
 
                     foreach (var debtor in debtors)
                     {
-                        if(!readers.Any(i => i.Id == debtor.Reader.Id))
+                        if(!readers.Any(i => i.ID == debtor.Reader.ID))
                         {
-                            Info.Inform($"ID: {debtor.Reader.Id} => {debtor.Reader.Name} {debtor.Reader.LastName} {debtor.Reader.SecondName}");
+                            Info.Inform($"ID: {debtor.Reader.ID} => {debtor.Reader.Name} {debtor.Reader.LastName} {debtor.Reader.SecondName}");
                             readers.Add(debtor.Reader);
                         }
                         if (debtor.ReturneTo <= DateTime.Now)

@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Librar.DAL.Models
 {
-    public class Librarian : IEntry
+    public class Librarian : IUser
     {
         [Key]
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         [MaxLength(400)]
         public string Login { get; set; } = null!;

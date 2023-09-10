@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Librar.DAL.Interface;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Librar.DAL.Models
 {
     public class PublishingCodeType
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         [Key]
         public int CodeType { get; set; }

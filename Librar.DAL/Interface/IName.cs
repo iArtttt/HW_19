@@ -2,6 +2,7 @@
 {
     public interface IName
     {
+        int ID { get; set; }
         string Name { get; set; }
     }
 }

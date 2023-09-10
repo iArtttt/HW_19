@@ -7,55 +7,22 @@ namespace Library
 {
     internal class LibrarianReaderManipulationMenu
     {
-        //[MenuAction("Librarian", 1, "Create new Librarian")]
-        //public void LibrarianRegistration(DbContextOptionsBuilder<LibraryContext> optionBuilder)
-        //{
-        //    Console.Clear();
-
-        //    using var context = new LibraryContext(optionBuilder.Options);
-        //    List<IEntry> users = context.Librarians.ToList<IEntry>();
-        //    users.AddRange(context.Readers.ToList<IEntry>());
-
-        //    Librarian newLibrarian = new Librarian();
-        //    var result = EntryRegister(newLibrarian, users);
-
-        //    if (result != null)
-        //    {
-        //        newLibrarian = (Librarian)result;
-
-        //        context.Librarians.Add(newLibrarian);
-        //        context.SaveChanges();
-
-        //        Console.ForegroundColor = ConsoleColor.Green;
-        //        Console.WriteLine("New Librarian was Add to base");
-        //        Console.ResetColor();
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("");
-        //    }
-
-        //    Console.WriteLine("Press any Key to continue");
-        //    Console.ReadKey();
-        //}
-
-        
 
         [MenuAction("Add", 1, "Create new Reader")]
         public void ReaderRegistration(DbContextOptionsBuilder<LibraryContext> optionBuilder, Librarian currentLibrarian)
         {
             Console.Clear();
             using var context = new LibraryContext(optionBuilder.Options);
-            List<IEntry> users = context.Librarians.ToList<IEntry>();
-            users.AddRange(context.Readers.ToList<IEntry>());
+            List<IUser> users = context.Librarians.ToList<IUser>();
+            users.AddRange(context.Readers.ToList<IUser>());
 
             Reader newReader = new Reader();
-            IEntry? result = EntryRegister(newReader, users);
+            IUser? result = EntryRegister(newReader, users);
 
 
             if (result != null)
             {
-                newReader = (Reader)PersonRegister((Reader)result);
+                newReader = ReaderRegister((Reader)result);
 
                 
                 
@@ -165,7 +132,7 @@ namespace Library
 
         }
         
-        private IEntry? EntryRegister(IEntry entry, List<IEntry> entries)
+        private IUser? EntryRegister(IUser entry, List<IUser> entries)
         {
             Console.WriteLine("Please enter Login");
             var login = Console.ReadLine();
@@ -224,7 +191,7 @@ namespace Library
             }
             return entry;
         }
-        private IPerson PersonRegister(IPerson person)
+        private Reader ReaderRegister(Reader person)
         {
             bool isExit = false;
             do
