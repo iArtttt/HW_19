@@ -1,4 +1,4 @@
-﻿using Librar.DAL.Interface;
+﻿using Library.Common.Interface;
 using System.ComponentModel.DataAnnotations;
 
 namespace Librar.DAL.Models

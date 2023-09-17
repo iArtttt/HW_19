@@ -1,15 +1,13 @@
 ﻿using Librar.DAL;
-using Librar.DAL.Interface;
 using Librar.DAL.Models;
+using Library.Common.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library
 {
-    internal class EnterInSystem
+    internal static class EnterInSystem
     {
-
-        [MenuAction("Login", 1, "To Enter in system")]
-        public void Login(DbContextOptionsBuilder<LibraryContext> optionBuilder)
+        public static void Login(DbContextOptionsBuilder<LibraryContext> optionBuilder)
         {
             Console.Clear();
             using var context = new LibraryContext(optionBuilder.Options);
@@ -40,7 +38,7 @@ namespace Library
             }
         }
 
-        private void System(IUser currentUser, LibraryContext context)
+        private static void System(IUser currentUser, LibraryContext context)
         {
             Info.SuccedKey("You are in system now");
 

@@ -18,17 +18,17 @@ namespace Librar.DAL
         public LibraryContext(DbContextOptions optionsBuilder)
             : base(optionsBuilder)
         {
-            Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Librarian>()
-                .HasMany(l => l.Readers)
-                .WithOne(r => r.Librarian)
-                .HasForeignKey(r => r.LibrarianLog)
-                .HasPrincipalKey(pk => pk.Login);
+            //modelBuilder.Entity<Librarian>()
+            //    .HasMany(l => l.Readers)
+            //    .WithOne(r => r.Librarian)
+            //    .HasForeignKey(r => r.LibrarianLog)
+            //    .HasPrincipalKey(pk => pk.Login);
 
             modelBuilder.Entity<Book>()
                 .HasOne(an => an.AutorNavigation)
@@ -76,7 +76,7 @@ namespace Librar.DAL
                     Birthday = DateTime.Today , 
                     DocumentType = "Passport",
                     DocumentNumber = 3354213,
-                    LibrarianLog = "Admin"
+                    //LibrarianLog = "Admin"
                 },
                 new Reader {
                     ID = 2,
@@ -87,7 +87,7 @@ namespace Librar.DAL
                     Birthday = DateTime.Parse("18.04.1993"), 
                     DocumentType = "ID Passport",
                     DocumentNumber = 777789,
-                    LibrarianLog = "Admin",
+                    //LibrarianLog = "Admin",
                     SecondName = "Marty"
                 }
                 );

@@ -1,4 +1,4 @@
-﻿namespace Librar.DAL.Interface
+﻿namespace Library.Common.Interface
 {
     public interface IName
     {

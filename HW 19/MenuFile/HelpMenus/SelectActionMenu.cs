@@ -1,5 +1,4 @@
-﻿using Librar.DAL;
-using Librar.DAL.Interface;
+﻿using Library.Common.Interface;
 
 namespace Library
 {

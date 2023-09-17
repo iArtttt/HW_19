@@ -1,5 +1,4 @@
-﻿using Librar.DAL.Interface;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Librar.DAL.Models

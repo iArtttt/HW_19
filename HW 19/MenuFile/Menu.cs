@@ -27,7 +27,7 @@ namespace Library
         {
             Init();
 
-            DetectMenu<EnterInSystem>().Process();
+            //DetectMenu<EnterInSystem>().Process();
         }
         private static void Init()
         {

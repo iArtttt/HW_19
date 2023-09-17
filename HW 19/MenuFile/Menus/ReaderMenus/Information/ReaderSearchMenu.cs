@@ -1,7 +1,7 @@
-﻿using Librar.DAL.Interface;
-using Librar.DAL.Models;
+﻿using Librar.DAL.Models;
 using Librar.DAL;
 using Microsoft.EntityFrameworkCore;
+using Library.Common.Interface;
 
 namespace Library
 {

@@ -1,12 +1,6 @@
-﻿using Librar.DAL.Interface;
-using System;
-using System.Collections.Generic;
+﻿using Library.Common.Interface;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Librar.DAL.Models
 {
@@ -34,8 +28,8 @@ namespace Librar.DAL.Models
         [ForeignKey(nameof(DocumentType))]
         public virtual DocumentType DocumentTypeNavigation { get; set; } = null!;
         
-        [MaxLength(400)]
-        public string LibrarianLog { get; set; } = null!;
-        public virtual Librarian Librarian { get; set; } = null!;
+        //[MaxLength(400)]
+        //public string LibrarianLog { get; set; } = null!;
+        //public virtual Librarian Librarian { get; set; } = null!;
     }
 }
