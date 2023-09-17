@@ -41,7 +41,7 @@ namespace Library.API.Controllers.Librarian
         }
 
         [HttpGet("story/{id = 0}")]
-        public async Task<List<BorrowedBook>> Story(int id)
+        public async Task<List<BorrowedBook>> Story(int? id)
         {
             return await _context.BorrowedBooks
                 .Where(b => b.ReaderID == id)

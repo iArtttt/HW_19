@@ -49,11 +49,12 @@ namespace Library.API.Controllers.Readers
         {
             var reader = await _context.Readers.FindAsync(readerId);
             var toReturn = await _context.BorrowedBooks.FindAsync(borowedId);
+            var toReturnBook = await _context.Books.FindAsync(toReturn?.BookID);
 
             if (reader == null) return Unauthorized();
-            if (toReturn == null || toReturn.IsReturned) return NotFound();
+            if (toReturn == null || toReturn.IsReturned || toReturnBook == null) return NotFound();
 
-            _context.Books.Attach(toReturn.Book);
+            _context.Books.Attach(toReturnBook);
 
 
 
@@ -62,12 +63,12 @@ namespace Library.API.Controllers.Readers
             if (toReturn.ReturneTo <= DateTime.Now)
                 toReturn.WasOverdue = true;
 
-            toReturn.Book.Count++;
+            toReturnBook.Count++;
 
 
             _context.SaveChanges();
 
-            return Ok($"{reader.Name}, return book ( {toReturn.Name} ) || Return Data : {DateTime.Now}");
+            return Ok($"{reader.Name}, return book ( {toReturnBook.Name} ) || Return Data : {DateTime.Now}");
         }
     }
 }

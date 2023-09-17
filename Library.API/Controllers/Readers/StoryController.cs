@@ -3,6 +3,7 @@ using Librar.DAL.Models;
 using Library.Common.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.API.Controllers.Readers
 {
@@ -20,16 +21,14 @@ namespace Library.API.Controllers.Readers
         [HttpGet("debt/{readerId = 0}")]
         public async Task<ActionResult<List<BorrowedBook>>> ToReturn(int? readerId)
         {
-            var currentReader = await _context.Readers.FindAsync(readerId);
+            var currentReader = await _context.BorrowedBooks
+                    .Where(b => b.ReaderID == readerId && !b.IsReturned && b.ReturneTo <= DateTime.Now)
+                    .OrderBy(d => d.ReturneTo)
+                    .ToListAsync();
 
             if (currentReader != null)
-            {
-                return currentReader.BorrowedBooks
-                    .Where(b => !b.IsReturned && b.ReturneTo <= DateTime.Now)
-                    .OrderBy(d => d.ReturneTo)
-                    .ToList();
+                return currentReader;
 
-            }
 
             return Unauthorized("Please authorize first");
         }
@@ -37,34 +36,30 @@ namespace Library.API.Controllers.Readers
         [HttpGet("holds/{readerId = 0}")]
         public async Task<ActionResult<List<BorrowedBook>>> Holds(int? readerId)
         {
-            var currentReader = await _context.Readers.FindAsync(readerId);
-
-            if (currentReader != null)
-            {
-                return currentReader.BorrowedBooks
-                    .Where(b => !b.IsReturned)
+            var currentReader = await _context.BorrowedBooks
+                    .Where(b => b.ReaderID == readerId && !b.IsReturned)
                     .OrderBy(d => d.ReturneTo)
-                    .ToList();
+                    .ToListAsync();
 
-            }
+            if (currentReader != null) 
+                return currentReader;
 
             return Unauthorized("Please authorize first");
         }
 
         [HttpGet("story/{readerId = 0}")]
-        public async Task<List<BorrowedBook>> Story(int? readerId)
+        public async Task<ActionResult<List<BorrowedBook>>> Story(int? readerId)
         {
-            var currentReader = await _context.Readers.FindAsync(readerId);
+            var currentReader = await _context.BorrowedBooks
+                    .Where(b => b.ReaderID == readerId)
+                    .OrderBy(d => !d.IsReturned)
+                    .ThenBy(d => d.ReturneTo)
+                    .ToListAsync();
 
-            if (currentReader != null)
-            {
-                return currentReader.BorrowedBooks.Select(b => b)
-                    .OrderBy(d => d.ReturneTo)
-                    .ToList();
+            if (currentReader != null) 
+                return currentReader;
 
-            }
-
-            return null/*("Please authorize first")*/;
+            return Unauthorized("Please authorize first");
         }
     }
 }

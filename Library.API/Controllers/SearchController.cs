@@ -17,6 +17,7 @@ namespace Library.API.Controllers
         {
             this._context = context;
         }
+        
         [HttpPost("book")]
         public async Task<List<Book>> SearchByBook(SearchDto search)
         {
@@ -27,6 +28,7 @@ namespace Library.API.Controllers
                 return await _context.Books.ToListAsync();
 
         }
+        
         [HttpPost("autor")]
         public async Task<List<Book>> SearchByAutor(SearchDto search)
         {
