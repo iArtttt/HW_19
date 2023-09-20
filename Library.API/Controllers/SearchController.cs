@@ -18,7 +18,7 @@ namespace Library.API.Controllers
             this._context = context;
         }
         
-        [HttpPost("book")]
+        [HttpGet("book")]
         public async Task<List<Book>> SearchByBook(SearchDto search)
         {
             
@@ -29,7 +29,7 @@ namespace Library.API.Controllers
 
         }
         
-        [HttpPost("autor")]
+        [HttpGet("autor")]
         public async Task<List<Book>> SearchByAutor(SearchDto search)
         {
             if (!string.IsNullOrEmpty(search.Search))

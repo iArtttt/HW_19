@@ -48,7 +48,7 @@ namespace Library.API.Controllers.Librarian
 
         }
 
-        [HttpPost("Change/{id = 0}")]
+        [HttpPut("Change/{id = 0}")]
         public async Task<ActionResult<IUser>> ChangeReader(int? id, UserChangingDto regInfo)
         {
             var reader = await _context.Readers.FindAsync(id);
@@ -73,7 +73,7 @@ namespace Library.API.Controllers.Librarian
 
         }
 
-        [HttpGet("remove/{id = 0}")]
+        [HttpDelete("remove/{id = 0}")]
         public async Task<ActionResult<IUser>> RemoveReader(int? id)
         {
             var readerToRemove = await _context.Readers.FindAsync(id);

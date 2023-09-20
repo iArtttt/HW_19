@@ -33,7 +33,7 @@ namespace Library.API.Controllers.Librarian
             _context.SaveChanges();
         }
 
-        [HttpPost("change/{id = 0}")]
+        [HttpPut("change/{id = 0}")]
         public void ChangeAutor(int? id, ChangeAutorDto autorDto)
         {
             if (id == default) return;
@@ -53,7 +53,7 @@ namespace Library.API.Controllers.Librarian
             }
         }
 
-        [HttpPost("remove/{id = 0}")]
+        [HttpDelete("remove/{id = 0}")]
         public void RemoveAutor(int? id)
         {
             if (id == null) return;

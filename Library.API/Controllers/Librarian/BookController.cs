@@ -51,7 +51,7 @@ namespace Library.API.Controllers.Librarian
             _context.SaveChanges();
         }
 
-        [HttpPost("change/{id = 0}")]
+        [HttpPut("change/{id = 0}")]
         public void ChangeBook(int? id, ChangeBookDto bookDto)
         {
             if (id == default) return;
@@ -77,7 +77,7 @@ namespace Library.API.Controllers.Librarian
             }
         }
 
-        [HttpPost("remove/{id = 0}")]
+        [HttpDelete("remove/{id = 0}")]
         public void RemoveBook(int? id)
         {
             if (id == null) return;

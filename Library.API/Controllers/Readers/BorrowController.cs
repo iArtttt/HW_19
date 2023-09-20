@@ -2,10 +2,11 @@
 using Librar.DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Library.API.Controllers.Readers
 {
-    [Route("api/reader/[controller]")]
+    [Route("api/reader/{readerId}/[controller]")]
     [ApiController]
     public class BorrowController : ControllerBase
     {
@@ -16,11 +17,15 @@ namespace Library.API.Controllers.Readers
             this._context = context;
         }
 
-        [HttpGet("take/{readerId = 0&bookId = 0}")]
-        public async Task<ActionResult> TakeBook(int? readerId, int? bookId)
+        [HttpPut("take/{bookId}")]
+        public async Task<ActionResult> TakeBook(string? readerId, string? bookId)
         {
-            var reader = await _context.Readers.FindAsync(readerId);
-            var book = await _context.Books.FindAsync(bookId);
+            if (!int.TryParse(readerId, out var rId) || !int.TryParse(bookId, out var bId))
+                return BadRequest();
+
+
+            var reader = await _context.Readers.FindAsync(rId);
+            var book = await _context.Books.FindAsync(bId);
 
             if (reader == null) return Unauthorized();
             if (book == null || book.Count == 0) return NotFound();
@@ -44,11 +49,15 @@ namespace Library.API.Controllers.Readers
             return Ok("You borrow book");
         }
 
-        [HttpGet("return/{readerId = 0&borowedId = 0}")]
-        public async Task<ActionResult> ReturnBook(int? readerId, int? borowedId)
+        [HttpPut("return/{borowedId}")]
+        public async Task<ActionResult> ReturnBook(string? readerId, string? borowedId)
         {
-            var reader = await _context.Readers.FindAsync(readerId);
-            var toReturn = await _context.BorrowedBooks.FindAsync(borowedId);
+
+            if (!int.TryParse(readerId, out var rId) || !int.TryParse(borowedId, out var bId))
+                return BadRequest();
+
+            var reader = await _context.Readers.FindAsync(rId);
+            var toReturn = await _context.BorrowedBooks.FindAsync(bId);
             var toReturnBook = await _context.Books.FindAsync(toReturn?.BookID);
 
             if (reader == null) return Unauthorized();
