@@ -1,0 +1,645 @@
+{
+	"info": {
+		"_postman_id": "b2aec65c-9cfd-4525-8c16-170c8fca5af6",
+		"name": "Library",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Reader",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\" : \"Reader\",\r\n    \"password\" : \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/login/enter",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"login",
+								"enter"
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "Reader",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Librarian",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\" : \"Admin\",\r\n    \"password\" : \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/login/enter",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"login",
+								"enter"
+							]
+						},
+						"description": "Post"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Search Book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"search\" : \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/Search/book",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"Search",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Autor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"search\" : \"Oleg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/Search/autor",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"Search",
+								"autor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Librarian",
+			"item": [
+				{
+					"name": "Information",
+					"item": [
+						{
+							"name": "Debtors",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Librarian}}/Info/debtors",
+									"host": [
+										"{{Librarian}}"
+									],
+									"path": [
+										"Info",
+										"debtors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "All Debtors",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Librarian}}/Info/all",
+									"host": [
+										"{{Librarian}}"
+									],
+									"path": [
+										"Info",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Current story",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Librarian}}/Info/story?id=1",
+									"host": [
+										"{{Librarian}}"
+									],
+									"path": [
+										"Info",
+										"story"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Book",
+					"item": [
+						{
+							"name": "Add",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\" : \"C# Cool 2\",\r\n    \"Genre\" : \"Learning\",\r\n    \"Autor\" : \"Oleg\",\r\n    \"PublishCode\" : \"879\",\r\n    \"PublishCodeType\" : \"5\",\r\n    \"Country\" : \"\",\r\n    \"City\" : \"\",\r\n    \"Count\" : \"2\",\r\n    \"ReturnDays\" : \"14\",\r\n    \"Year\" : null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Librarian}}/book/add",
+									"host": [
+										"{{Librarian}}"
+									],
+									"path": [
+										"book",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\" : \"C# Cool 2.1\",\r\n    \"Genre\" : null,\r\n    \"Autor\" : null,\r\n    \"PublishCode\" : null,\r\n    \"PublishCodeType\" : null,\r\n    \"Country\" : null,\r\n    \"City\" : null,\r\n    \"Count\" : null,\r\n    \"ReturnDays\" : \"16\",\r\n    \"Year\" : null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Librarian}}/book/change",
+									"host": [
+										"{{Librarian}}"
+									],
+									"path": [
+										"book",
+										"change"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "5",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{Librarian}}/book/remove?id=6",
+									"host": [
+										"{{Librarian}}"
+									],
+									"path": [
+										"book",
+										"remove"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "6"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Autor",
+					"item": [
+						{
+							"name": "Add",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\" : \"Vlad\",\r\n    \"LastName\" : \"Semmonenko\",\r\n    \"SecondName\" : null,\r\n    \"Birthday\" : \"1945-12-10\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Librarian}}/Autor/add",
+									"host": [
+										"{{Librarian}}"
+									],
+									"path": [
+										"Autor",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\" : null,\r\n    \"LastName\" : null,\r\n    \"SecondName\" : \"Hikamura\",\r\n    \"Birthday\" : null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Librarian}}/Autor/change?id=4",
+									"host": [
+										"{{Librarian}}"
+									],
+									"path": [
+										"Autor",
+										"change"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{Librarian}}/Autor/remove?id=4",
+									"host": [
+										"{{Librarian}}"
+									],
+									"path": [
+										"Autor",
+										"remove"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reader",
+					"item": [
+						{
+							"name": "Registrate",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"login\" : \"Reader3\",\r\n    \"password\" : \"1234\",\r\n    \"email\" : \"rearer@gmail.com\",\r\n    \"name\" : \"Artur\",\r\n    \"documentType\" : \"Passport\",\r\n    \"documentNumber\" : 18821\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Librarian}}/reader/registration",
+									"host": [
+										"{{Librarian}}"
+									],
+									"path": [
+										"reader",
+										"registration"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"login\" : null,\r\n    \"password\" : null,\r\n    \"email\" : \"rearerrr@gmail.com\",\r\n    \"name\" : null,\r\n    \"lastName\" : null,\r\n    \"secondName\" : null,\r\n    \"documentType\" : null,\r\n    \"documentNumber\" : null,\r\n    \"birthday\" : \"2001-03-29\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Librarian}}/reader/Change?id=3",
+									"host": [
+										"{{Librarian}}"
+									],
+									"path": [
+										"reader",
+										"Change"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Librarian}}/reader/remove?id=6",
+									"host": [
+										"{{Librarian}}"
+									],
+									"path": [
+										"reader",
+										"remove"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "6"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Reader",
+			"item": [
+				{
+					"name": "Story",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Reader}}/inform/story?readerId=3",
+							"host": [
+								"{{Reader}}"
+							],
+							"path": [
+								"inform",
+								"story"
+							],
+							"query": [
+								{
+									"key": "readerId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Holds",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Reader}}/inform/holds?readerId=3",
+							"host": [
+								"{{Reader}}"
+							],
+							"path": [
+								"inform",
+								"holds"
+							],
+							"query": [
+								{
+									"key": "readerId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Debt",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Reader}}/inform/debt?readerId=3",
+							"host": [
+								"{{Reader}}"
+							],
+							"path": [
+								"inform",
+								"debt"
+							],
+							"query": [
+								{
+									"key": "readerId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TakeBook",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Reader}}/Borrow/take?readerId=3&bookId=2",
+							"host": [
+								"{{Reader}}"
+							],
+							"path": [
+								"Borrow",
+								"take"
+							],
+							"query": [
+								{
+									"key": "readerId",
+									"value": "3"
+								},
+								{
+									"key": "bookId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Return",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Reader}}/Borrow/return?readerId=3&borowedId=1",
+							"host": [
+								"{{Reader}}"
+							],
+							"path": [
+								"Borrow",
+								"return"
+							],
+							"query": [
+								{
+									"key": "readerId",
+									"value": "3"
+								},
+								{
+									"key": "borowedId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Host",
+			"value": "http://localhost:5102/api"
+		},
+		{
+			"key": "Librarian",
+			"value": "http://localhost:5102/api/librarian"
+		},
+		{
+			"key": "Reader",
+			"value": "http://localhost:5102/api/reader"
+		}
+	]
+}
